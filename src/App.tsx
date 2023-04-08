@@ -1,10 +1,10 @@
 import "./App.css";
+import Navbar from "./components/common/Navbar";
 
 function App() {
   return (
     <div className="App">
-      <h2>Hello</h2>
-      <button className="btn btn-primary">Button</button>
+      <Navbar />
     </div>
   );
 }

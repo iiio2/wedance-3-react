@@ -1,6 +1,6 @@
 const About = () => {
   return (
-    <p className="text-justify text-neutral-950 leading-8 text-lg">
+    <p className="p-4 text-justify text-neutral-950 leading-8 text-lg">
       Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad quasi minima
       voluptatibus totam consectetur saepe ipsam enim, quas aut sapiente nemo,
       repellendus obcaecati? Quo blanditiis nisi rem quas aperiam doloribus

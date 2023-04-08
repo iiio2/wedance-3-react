@@ -1,4 +1,7 @@
+import { NavLink, useNavigate } from "react-router-dom";
+
 const Navbar = () => {
+  const navigate = useNavigate();
   return (
     <div className="navbar bg-primary flex justify-center ">
       <div className="text-primary-content">
@@ -24,14 +27,16 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 text-primary rounded-box w-52"
           >
             <li>
-              <a>About</a>
-            </li>
-            <li>
-              <a>Profile</a>
+              <NavLink to="/about">About</NavLink>
             </li>
           </ul>
 
-          <a className="btn btn-ghost normal-case text-xl">WeDance</a>
+          <a
+            onClick={() => navigate("/")}
+            className="btn btn-ghost normal-case text-xl"
+          >
+            WeDance
+          </a>
         </div>
       </div>
     </div>

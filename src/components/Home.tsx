@@ -14,7 +14,7 @@ const Home = () => {
       <div className="hero-content text-center text-neutral-content">
         <div className="max-w-md">
           <HomeContent />
-          <GoogleLogin />
+          <GoogleLogin label="Get Started" />
         </div>
       </div>
     </div>

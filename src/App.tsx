@@ -1,16 +1,22 @@
+import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
 import { onAuthStateChanged } from "firebase/auth";
 import { auth } from "./services/firebase";
 import Navbar from "./components/common/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
+import Profile from "./components/Profile";
 import "./App.css";
 
+export interface User {
+  uid: string;
+}
+
 function App() {
+  const [user, setUser] = useState<User>({} as User);
   onAuthStateChanged(auth, (user) => {
     if (user) {
-      const uid = user.uid;
-      console.log(uid);
+      setUser(user as User);
     } else {
       return null;
     }
@@ -22,6 +28,7 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/about" element={<About />} />
+          <Route path="/profile" element={<Profile user={user} />} />
         </Routes>
       </div>
     </div>

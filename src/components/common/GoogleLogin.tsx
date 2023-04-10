@@ -1,17 +1,46 @@
 import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
-import { auth } from "../../services/firebase";
+import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
+import { auth, db } from "../../services/firebase";
 
-const GoogleLogin = () => {
-  const provider = new GoogleAuthProvider();
+interface Props {
+  label: string;
+}
+
+const GoogleLogin = ({ label }: Props) => {
   const loginWithGoogle = () => {
+    const provider = new GoogleAuthProvider();
+
     signInWithPopup(auth, provider).then((result) => {
-      window.location.href = "/about";
+      const { displayName, email, photoURL, phoneNumber, uid } = result.user;
+
+      const q = query(collection(db, "users"), where("email", "==", email));
+
+      getDocs(q).then((querySnapshot) => {
+        const user: string[] = [];
+
+        querySnapshot.forEach((doc) => {
+          user.push(doc.id);
+        });
+
+        if (user.length > 0) return null;
+        addDoc(collection(db, "users"), {
+          displayName,
+          email,
+          photoURL,
+          phoneNumber,
+          createdAt: new Date(),
+          uid,
+          events: [],
+        }).then((docRef) => {
+          console.log("document written");
+        });
+      });
     });
   };
 
   return (
     <button onClick={loginWithGoogle} className="btn btn-primary">
-      Get Started
+      {label}
     </button>
   );
 };

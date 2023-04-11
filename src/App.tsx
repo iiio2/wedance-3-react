@@ -6,6 +6,7 @@ import Navbar from "./components/common/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
 import Profile from "./components/Profile";
+import Footer from "./components/common/footer";
 import "./App.css";
 
 export interface User {
@@ -31,6 +32,7 @@ function App() {
           <Route path="/profile" element={<Profile user={user} />} />
         </Routes>
       </div>
+      <Footer />
     </div>
   );
 }

@@ -34,7 +34,7 @@ const Profile = ({ user }: Props) => {
   }, [user.uid]);
 
   return (
-    <div className="profile p-4 text-neutral-950 leading-8 text-lg ">
+    <div className="p-4 text-neutral-950 leading-8 text-lg h-screen">
       <div className="avatar">
         <div className="w-24 rounded-full">
           <img src={person.photoURL} />

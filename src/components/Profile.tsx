@@ -1,4 +1,5 @@
 import { useEffect, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { User } from "../App";
@@ -18,6 +19,8 @@ interface Person {
 const Profile = ({ user }: Props) => {
   const [person, setPerson] = useState<Person>({} as Person);
 
+  const navigate = useNavigate();
+
   const fetchUser = () => {
     if (user.uid) {
       const q = query(collection(db, "users"), where("uid", "==", user.uid));
@@ -35,15 +38,27 @@ const Profile = ({ user }: Props) => {
 
   return (
     <>
-      <div className="avatar">
-        <div className="w-24 rounded-full">
-          <img src={person.photoURL} />
-        </div>
-      </div>
-      <h3 className="text-5xl">{person.displayName}</h3>
-      <p>{person.email}</p>
-      <p>{person.phoneNumber}</p>
-      {person.events && person.events.length === 0 && <p>No events founds.</p>}
+      {person.email && (
+        <>
+          <div className="avatar flex justify-between items-center">
+            <div className="w-24 rounded-full">
+              <img src={person.photoURL} />
+            </div>
+            <button
+              onClick={() => navigate("/edit-profile")}
+              className="btn btn-info"
+            >
+              + Edit Profile
+            </button>
+          </div>
+          <h3 className="text-5xl">{person.displayName}</h3>
+          <p>{person.email}</p>
+          <p>{person.phoneNumber}</p>
+          {person.events && person.events.length === 0 && (
+            <p>No events founds.</p>
+          )}
+        </>
+      )}
     </>
   );
 };

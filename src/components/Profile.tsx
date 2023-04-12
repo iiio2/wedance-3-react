@@ -2,7 +2,6 @@ import { useEffect, useState } from "react";
 import { collection, query, where, getDocs } from "firebase/firestore";
 import { db } from "../services/firebase";
 import { User } from "../App";
-import DefaultLayout from "../layouts/default";
 
 interface Props {
   user: User;
@@ -35,7 +34,7 @@ const Profile = ({ user }: Props) => {
   }, [user.uid]);
 
   return (
-    <DefaultLayout>
+    <>
       <div className="avatar">
         <div className="w-24 rounded-full">
           <img src={person.photoURL} />
@@ -45,7 +44,7 @@ const Profile = ({ user }: Props) => {
       <p>{person.email}</p>
       <p>{person.phoneNumber}</p>
       {person.events && person.events.length === 0 && <p>No events founds.</p>}
-    </DefaultLayout>
+    </>
   );
 };
 

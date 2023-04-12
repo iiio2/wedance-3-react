@@ -8,6 +8,7 @@ import About from "./components/About";
 import Profile from "./components/Profile";
 import Contact from "./components/Contact";
 import Footer from "./components/common/footer";
+import DefaultLayout from "./layouts/default";
 import "./App.css";
 
 export interface User {
@@ -29,9 +30,30 @@ function App() {
       <div className="main">
         <Routes>
           <Route path="/" element={<Home />} />
-          <Route path="/about" element={<About />} />
-          <Route path="/profile" element={<Profile user={user} />} />
-          <Route path="/contact" element={<Contact />} />
+          <Route
+            path="/about"
+            element={
+              <DefaultLayout>
+                <About />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/profile"
+            element={
+              <DefaultLayout>
+                <Profile user={user} />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/contact"
+            element={
+              <DefaultLayout>
+                <Contact />
+              </DefaultLayout>
+            }
+          />
         </Routes>
       </div>
       <Footer />

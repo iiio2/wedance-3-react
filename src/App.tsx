@@ -8,6 +8,7 @@ import About from "./components/About";
 import Profile from "./components/Profile";
 import Contact from "./components/Contact";
 import Footer from "./components/common/footer";
+import EditProfile from "./components/EditProfile";
 import DefaultLayout from "./layouts/default";
 import "./App.css";
 
@@ -51,6 +52,14 @@ function App() {
             element={
               <DefaultLayout>
                 <Contact />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/edit-profile"
+            element={
+              <DefaultLayout>
+                <EditProfile user={user} />
               </DefaultLayout>
             }
           />

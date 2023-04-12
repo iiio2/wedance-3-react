@@ -1,23 +1,22 @@
+import DefaultLayout from "../layouts/default";
+
 const About = () => {
   return (
-    <p className="p-4 text-justify text-neutral-950 leading-8 text-lg h-screen">
-      Lorem ipsum dolor sit amet consectetur, adipisicing elit. Ad quasi minima
-      voluptatibus totam consectetur saepe ipsam enim, quas aut sapiente nemo,
-      repellendus obcaecati? Quo blanditiis nisi rem quas aperiam doloribus
-      doloremque quasi temporibus enim ipsum dicta asperiores vel porro officiis
-      harum, corporis alias molestias hic sint. Vitae perferendis consequuntur
-      dolorum excepturi. Animi itaque voluptate, rerum natus vitae officia
-      maiores fuga quo, ipsam culpa tenetur architecto cupiditate ad consequatur
-      soluta deserunt nam neque iste alias, maxime aspernatur ab pariatur.
-      Labore, modi! Odio minima voluptas ut deserunt perspiciatis, provident
-      eius porro quia quod inventore doloribus magnam laborum, explicabo velit
-      sint quibusdam dignissimos beatae, quis aperiam esse tempore pariatur! Id
-      quaerat nisi consectetur architecto tempora! Dolorem voluptatibus,
-      voluptas, distinctio id aut laudantium tempore exercitationem aspernatur
-      odit molestias accusamus assumenda recusandae eius harum, mollitia eum
-      totam nemo ut explicabo voluptate eveniet ducimus autem! Adipisci cum
-      delectus nihil natus dolore non voluptate nemo, iste animi.{" "}
-    </p>
+    <DefaultLayout>
+      <p>
+        Lorem ipsum dolor, sit amet consectetur adipisicing elit. Aspernatur
+        debitis accusantium veniam, eum deleniti dolore doloribus tempora, neque
+        sapiente hic laudantium voluptatum facere quaerat consequuntur! Sapiente
+        accusantium, animi, consectetur fugiat harum, nobis facere ullam sunt
+        nemo eaque voluptatibus tenetur temporibus fugit quidem incidunt
+        adipisci expedita atque ipsam reiciendis aperiam possimus illo. Nulla
+        ducimus quas vitae laborum, voluptate laudantium eveniet tempore atque
+        accusamus illo earum omnis in commodi ullam saepe neque dolorum labore
+        error ab officiis. Obcaecati, libero quod. Omnis vitae, sit qui porro
+        sapiente pariatur eaque architecto harum, veniam aliquid doloribus,
+        animi quidem! Quam autem nisi iusto quia. Natus, asperiores!
+      </p>
+    </DefaultLayout>
   );
 };
 

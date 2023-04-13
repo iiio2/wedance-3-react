@@ -8,6 +8,7 @@ interface Person {
   email: string;
   photoURL: string;
   phoneNumber: number;
+  livingIn: string;
   events: object[];
 }
 
@@ -27,7 +28,7 @@ const useProfile = () => {
 
   useEffect(() => {
     fetchUser();
-  }, [user.uid]);
+  }, [user]);
 
   return { person };
 };

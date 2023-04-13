@@ -1,12 +1,7 @@
 import useProfile from "../hooks/useProfile";
-import { User } from "../App";
 
-interface Props {
-  user: User;
-}
-
-const EditProfile = ({ user }: Props) => {
-  const { person } = useProfile(user.uid);
+const EditProfile = () => {
+  const { person } = useProfile();
   console.log(person);
 
   return (

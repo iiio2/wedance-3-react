@@ -1,7 +1,4 @@
-import { useState } from "react";
 import { Routes, Route } from "react-router-dom";
-import { onAuthStateChanged } from "firebase/auth";
-import { auth } from "./services/firebase";
 import Navbar from "./components/common/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -12,19 +9,7 @@ import EditProfile from "./components/EditProfile";
 import DefaultLayout from "./layouts/default";
 import "./App.css";
 
-export interface User {
-  uid: string;
-}
-
 function App() {
-  const [user, setUser] = useState<User>({} as User);
-  onAuthStateChanged(auth, (user) => {
-    if (user) {
-      setUser(user as User);
-    } else {
-      return null;
-    }
-  });
   return (
     <div className="App">
       <Navbar />
@@ -43,7 +28,7 @@ function App() {
             path="/profile"
             element={
               <DefaultLayout>
-                <Profile user={user} />
+                <Profile />
               </DefaultLayout>
             }
           />
@@ -59,7 +44,7 @@ function App() {
             path="/edit-profile"
             element={
               <DefaultLayout>
-                <EditProfile user={user} />
+                <EditProfile />
               </DefaultLayout>
             }
           />

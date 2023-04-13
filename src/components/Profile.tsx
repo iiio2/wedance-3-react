@@ -1,13 +1,8 @@
 import { useNavigate } from "react-router-dom";
 import useProfile from "../hooks/useProfile";
-import { User } from "../App";
 
-interface Props {
-  user: User;
-}
-
-const Profile = ({ user }: Props) => {
-  const { person } = useProfile(user.uid);
+const Profile = () => {
+  const { person } = useProfile();
   const navigate = useNavigate();
 
   return (

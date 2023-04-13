@@ -1,8 +1,28 @@
-import { signInWithPopup, GoogleAuthProvider } from "firebase/auth";
+import { useState, useEffect } from "react";
+import {
+  signInWithPopup,
+  GoogleAuthProvider,
+  onAuthStateChanged,
+} from "firebase/auth";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
 
+interface User {
+  uid: string;
+}
+
 const useAuth = () => {
+  const [user, setUser] = useState<User>({} as User);
+  useEffect(() => {
+    onAuthStateChanged(auth, (user) => {
+      if (user) {
+        setUser(user as User);
+      } else {
+        return null;
+      }
+    });
+  }, [user.uid]);
+
   const loginWithGoogle = () => {
     const provider = new GoogleAuthProvider();
 
@@ -33,7 +53,7 @@ const useAuth = () => {
       });
     });
   };
-  return { loginWithGoogle };
+  return { loginWithGoogle, user };
 };
 
 export default useAuth;

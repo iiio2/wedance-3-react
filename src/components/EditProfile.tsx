@@ -1,5 +1,7 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { storage } from "../services/firebase";
+import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useProfile from "../hooks/useProfile";
 
 type FormData = {
@@ -7,19 +9,32 @@ type FormData = {
   email: string;
   phoneNumber: number;
   livingIn: string;
+  photoURL: string;
+  image: FileList;
 };
 
 const EditProfile = () => {
-  const { person } = useProfile();
+  const { person, updateUser } = useProfile();
   const { register, handleSubmit, reset } = useForm<FormData>();
-  console.log(person);
 
   useEffect(() => {
     reset(person);
   }, [person]);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
-    console.log(data);
+    if (data.image[0]?.name) {
+      const imageRef = ref(storage, `images/${data.image[0].name}`);
+      uploadBytes(imageRef, data.image[0]).then((snapshot) => {
+        getDownloadURL(ref(storage, `images/${data.image[0].name}`)).then(
+          (url) => {
+            data.photoURL = url;
+            updateUser(data);
+            return;
+          }
+        );
+      });
+    }
+    updateUser(data);
   };
 
   return (
@@ -67,7 +82,11 @@ const EditProfile = () => {
           <label className="label">
             <span className="label-text">Photo</span>
           </label>
-          <img className="rounded-full" src={person.photoURL} alt="User" />
+          <div className="avatar flex justify-between items-center">
+            <div className="rounded-full">
+              <img src={person.photoURL} />
+            </div>
+          </div>
         </div>
 
         <div className="form-group">
@@ -75,7 +94,10 @@ const EditProfile = () => {
             <span className="label-text">Change Photo</span>
           </label>
           <input
+            {...register("image")}
             type="file"
+            name="image"
+            accept="image/*"
             className="file-input file-input-bordered w-full max-w-xs"
           />
         </div>

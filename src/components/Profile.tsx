@@ -10,7 +10,7 @@ const Profile = () => {
       {person.email && (
         <>
           <div className="avatar flex justify-between items-center">
-            <div className="w-24 rounded-full">
+            <div className="rounded-full">
               <img src={person.photoURL} />
             </div>
             <button
@@ -23,6 +23,7 @@ const Profile = () => {
           <h3 className="text-5xl">{person.displayName}</h3>
           <p>{person.email}</p>
           <p>{person.phoneNumber}</p>
+          <p>{person.livingIn}</p>
           {person.events && person.events.length === 0 && (
             <p>No events founds.</p>
           )}

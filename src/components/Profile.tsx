@@ -27,6 +27,12 @@ const Profile = () => {
           {person.events && person.events.length === 0 && (
             <p>No events founds.</p>
           )}
+          <button
+            onClick={() => navigate("/create-event")}
+            className="btn btn-success mt-2"
+          >
+            Create Event
+          </button>
         </>
       )}
     </>

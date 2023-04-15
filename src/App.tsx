@@ -6,6 +6,7 @@ import Profile from "./components/Profile";
 import Contact from "./components/Contact";
 import Footer from "./components/common/footer";
 import EditProfile from "./components/EditProfile";
+import CreateEvent from "./components/CreateEvent";
 import DefaultLayout from "./layouts/default";
 import "./App.css";
 
@@ -45,6 +46,14 @@ function App() {
             element={
               <DefaultLayout>
                 <EditProfile />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/create-event"
+            element={
+              <DefaultLayout>
+                <CreateEvent />
               </DefaultLayout>
             }
           />

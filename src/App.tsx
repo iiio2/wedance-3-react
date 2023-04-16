@@ -9,6 +9,7 @@ import EditProfile from "./components/EditProfile";
 import CreateEvent from "./components/CreateEvent";
 import DefaultLayout from "./layouts/default";
 import "./App.css";
+import Events from "./components/Events";
 
 function App() {
   return (
@@ -54,6 +55,14 @@ function App() {
             element={
               <DefaultLayout>
                 <CreateEvent />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/events"
+            element={
+              <DefaultLayout>
+                <Events />
               </DefaultLayout>
             }
           />

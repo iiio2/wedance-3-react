@@ -1,10 +1,10 @@
 import { useEffect, useState } from "react";
-import { collection, addDoc, getDocs } from "firebase/firestore";
+import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
 import { db } from "../services/firebase";
 import useAuth from "./useAuth";
 
 interface Event {
-  id: string;
+  id?: string;
   organizer: string;
   eventName: string;
   tickets: string;
@@ -20,12 +20,13 @@ interface Event {
 
 const useEvent = () => {
   const { user } = useAuth();
-  const [event, setEvent] = useState<Event>({} as Event);
+  const [eventsOfOwner, setEventsOfOwner] = useState<Event[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
 
   const addEvent = (data: Event) => {
     if (user.uid) {
       addDoc(collection(db, "events"), {
+        owner: user.uid,
         organizer: data.organizer,
         eventName: data.eventName,
         tickets: data.tickets,
@@ -54,11 +55,28 @@ const useEvent = () => {
     });
   };
 
+  const getEventsByOwner = () => {
+    if (user.uid) {
+      let events: Event[] = [];
+      const q = query(collection(db, "events"), where("owner", "==", user.uid));
+
+      getDocs(q).then((querySnapshot) => {
+        querySnapshot.forEach((doc) => {
+          if (doc.exists()) {
+            events.push({ id: doc.id, ...doc.data() } as Event);
+          }
+        });
+        setEventsOfOwner(events);
+      });
+    }
+  };
+
   useEffect(() => {
     allEvents();
-  }, []);
+    getEventsByOwner();
+  }, [user.uid]);
 
-  return { addEvent, events };
+  return { addEvent, events, eventsOfOwner };
 };
 
 export default useEvent;

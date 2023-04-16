@@ -1,4 +1,4 @@
-import { useEffect, useState, useRef, useCallback } from "react";
+import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useEvent from "../hooks/useEvent";
 
@@ -19,8 +19,7 @@ type FormData = {
 };
 
 const CreateEvent = () => {
-  const { register, handleSubmit, watch, getValues, trigger, reset } =
-    useForm<FormData>();
+  const { register, handleSubmit, watch, reset } = useForm<FormData>();
   const [danceStyles, setDanceStyles] = useState<string[]>([]);
   const [artists, setArtists] = useState<any>([]);
   const { addEvent } = useEvent();

@@ -7,8 +7,8 @@ type FormData = {
   eventName: string;
   tickets: string;
   facebookEvent: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   where: string;
   price: number;
   eventType: string;

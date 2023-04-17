@@ -1,4 +1,4 @@
-import { useNavigate } from "react-router-dom";
+import { useNavigate, useParams, Link } from "react-router-dom";
 import useProfile from "../hooks/useProfile";
 import useEvent from "../hooks/useEvent";
 import { useEffect, useState } from "react";
@@ -9,6 +9,7 @@ const Profile = () => {
   const { eventsOfOwner, deleteEvent } = useEvent();
   const [events, setEvents] = useState<Event[]>([]);
   const navigate = useNavigate();
+  const { id } = useParams();
 
   useEffect(() => {
     setEvents(eventsOfOwner);
@@ -43,16 +44,26 @@ const Profile = () => {
                 <p>Event: {event.eventName} </p>
                 <p>Price: {event.price} </p>
               </div>
-              <div className="delete-btn">
-                <button
-                  onClick={() => {
-                    setEvents(events.filter((e) => e.id !== event.id));
-                    deleteEvent(event);
-                  }}
-                  className="btn btn-error"
-                >
-                  Delete
-                </button>
+              <div className="btn-group">
+                <div className="edit-btn">
+                  <Link
+                    to={`/edit-event/${event.id}`}
+                    className="btn btn-accent"
+                  >
+                    Edit
+                  </Link>
+                </div>
+                <div className="delete-btn ml-2">
+                  <button
+                    onClick={() => {
+                      setEvents(events.filter((e) => e.id !== event.id));
+                      deleteEvent(event);
+                    }}
+                    className="btn btn-error"
+                  >
+                    Delete
+                  </button>
+                </div>
               </div>
             </div>
           ))}

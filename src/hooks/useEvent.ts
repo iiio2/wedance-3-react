@@ -8,6 +8,7 @@ import {
   deleteDoc,
   doc,
   getDoc,
+  updateDoc,
 } from "firebase/firestore";
 import { db } from "../services/firebase";
 import useAuth from "./useAuth";
@@ -96,12 +97,39 @@ const useEvent = () => {
     }
   };
 
+  const updateEvent = (data: Event, eventId: string) => {
+    if (user.uid) {
+      const docRef = doc(db, "events", eventId);
+      updateDoc(docRef, {
+        organizer: data.organizer,
+        eventName: data.eventName,
+        tickets: data.tickets,
+        facebookEvent: data.facebookEvent,
+        startDate: data.startDate,
+        endDate: data.endDate,
+        where: data.where,
+        price: data.price,
+        eventType: data.eventType,
+        allDanceStyles: data.allDanceStyles,
+        allArtists: data.allArtists,
+      });
+    }
+  };
+
   useEffect(() => {
     allEvents();
     getEventsByOwner();
   }, [user.uid]);
 
-  return { addEvent, events, eventsOfOwner, deleteEvent, fetchEvent, event };
+  return {
+    addEvent,
+    events,
+    eventsOfOwner,
+    deleteEvent,
+    fetchEvent,
+    event,
+    updateEvent,
+  };
 };
 
 export default useEvent;

@@ -6,7 +6,7 @@ import { FormData } from "./CreateEvent";
 
 const EditEvent = () => {
   const { id } = useParams();
-  const { fetchEvent, event } = useEvent();
+  const { fetchEvent, event, updateEvent } = useEvent();
 
   const { register, handleSubmit, watch, reset } = useForm<FormData>();
   const [danceStyles, setDanceStyles] = useState<string[]>([]);
@@ -50,8 +50,7 @@ const EditEvent = () => {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     data.allDanceStyles = danceStyles;
     data.allArtists = artists;
-    addEvent(data);
-    console.log(data);
+    updateEvent(data, id!);
   };
 
   return (

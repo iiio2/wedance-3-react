@@ -10,6 +10,7 @@ import CreateEvent from "./components/CreateEvent";
 import DefaultLayout from "./layouts/default";
 import "./App.css";
 import Events from "./components/Events";
+import Event from "./components/Event";
 
 function App() {
   return (
@@ -63,6 +64,14 @@ function App() {
             element={
               <DefaultLayout>
                 <Events />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/event/:id"
+            element={
+              <DefaultLayout>
+                <Event />
               </DefaultLayout>
             }
           />

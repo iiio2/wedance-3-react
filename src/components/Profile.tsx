@@ -1,11 +1,19 @@
 import { useNavigate } from "react-router-dom";
 import useProfile from "../hooks/useProfile";
 import useEvent from "../hooks/useEvent";
+import { useEffect, useState } from "react";
+import { Event } from "../hooks/useEvent";
 
 const Profile = () => {
   const { person } = useProfile();
-  const { eventsOfOwner } = useEvent();
+  const { eventsOfOwner, deleteEvent } = useEvent();
+  const [events, setEvents] = useState<Event[]>([]);
   const navigate = useNavigate();
+
+  useEffect(() => {
+    setEvents(eventsOfOwner);
+  }, [eventsOfOwner]);
+
   return (
     <>
       {person.email && (
@@ -25,14 +33,27 @@ const Profile = () => {
           <p>{person.email}</p>
           <p>{person.phoneNumber}</p>
           <p>{person.livingIn}</p>
-          {eventsOfOwner.map((event) => (
+          {events.map((event) => (
             <div
-              className="border-l-4 border-sky-500 my-2 px-2 bg-sky-100"
+              className="border-l-4 border-sky-500 my-2 px-2 bg-sky-100 flex justify-between items-center"
               key={event.id}
             >
-              <h3>Organizer: {event.organizer}</h3>
-              <p>Event: {event.eventName} </p>
-              <p>Price: {event.price} </p>
+              <div className="event-short-info">
+                <h3>Organizer: {event.organizer}</h3>
+                <p>Event: {event.eventName} </p>
+                <p>Price: {event.price} </p>
+              </div>
+              <div className="delete-btn">
+                <button
+                  onClick={() => {
+                    setEvents(events.filter((e) => e.id !== event.id));
+                    deleteEvent(event);
+                  }}
+                  className="btn btn-error"
+                >
+                  Delete
+                </button>
+              </div>
             </div>
           ))}
           <button

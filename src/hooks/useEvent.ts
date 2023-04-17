@@ -1,9 +1,17 @@
 import { useEffect, useState } from "react";
-import { collection, addDoc, getDocs, query, where } from "firebase/firestore";
+import {
+  collection,
+  addDoc,
+  getDocs,
+  query,
+  where,
+  deleteDoc,
+  doc,
+} from "firebase/firestore";
 import { db } from "../services/firebase";
 import useAuth from "./useAuth";
 
-interface Event {
+export interface Event {
   id?: string;
   organizer: string;
   eventName: string;
@@ -71,12 +79,18 @@ const useEvent = () => {
     }
   };
 
+  const deleteEvent = (event: Event) => {
+    if (event.id) {
+      deleteDoc(doc(db, "events", event.id));
+    }
+  };
+
   useEffect(() => {
     allEvents();
     getEventsByOwner();
   }, [user.uid]);
 
-  return { addEvent, events, eventsOfOwner };
+  return { addEvent, events, eventsOfOwner, deleteEvent };
 };
 
 export default useEvent;

@@ -7,6 +7,7 @@ import {
   where,
   deleteDoc,
   doc,
+  getDoc,
 } from "firebase/firestore";
 import { db } from "../services/firebase";
 import useAuth from "./useAuth";
@@ -17,8 +18,8 @@ export interface Event {
   eventName: string;
   tickets: string;
   facebookEvent: string;
-  startDate: Date;
-  endDate: Date;
+  startDate: string;
+  endDate: string;
   where: string;
   price: number;
   eventType: string;
@@ -30,6 +31,7 @@ const useEvent = () => {
   const { user } = useAuth();
   const [eventsOfOwner, setEventsOfOwner] = useState<Event[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
+  const [event, setEvent] = useState<Event>({} as Event);
 
   const addEvent = (data: Event) => {
     if (user.uid) {
@@ -85,12 +87,21 @@ const useEvent = () => {
     }
   };
 
+  const fetchEvent = (eventId: string) => {
+    if (eventId) {
+      const docRef = doc(db, "events", eventId);
+      getDoc(docRef).then((doc) => {
+        setEvent(doc.data() as Event);
+      });
+    }
+  };
+
   useEffect(() => {
     allEvents();
     getEventsByOwner();
   }, [user.uid]);
 
-  return { addEvent, events, eventsOfOwner, deleteEvent };
+  return { addEvent, events, eventsOfOwner, deleteEvent, fetchEvent, event };
 };
 
 export default useEvent;

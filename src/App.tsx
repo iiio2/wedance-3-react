@@ -8,10 +8,10 @@ import Footer from "./components/common/footer";
 import EditProfile from "./components/EditProfile";
 import CreateEvent from "./components/CreateEvent";
 import DefaultLayout from "./layouts/default";
-import "./App.css";
 import Events from "./components/Events";
 import Event from "./components/Event";
 import EditEvent from "./components/EditEvent";
+import "./App.css";
 
 function App() {
   return (

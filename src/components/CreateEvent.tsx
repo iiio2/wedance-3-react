@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useEvent from "../hooks/useEvent";
 
-type FormData = {
+export type FormData = {
   organizer: string;
   eventName: string;
   tickets: string;

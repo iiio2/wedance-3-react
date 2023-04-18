@@ -6,7 +6,11 @@ const Events = () => {
   return (
     <>
       {events.map((event) => (
-        <Link to={`/event/${event.id}`} key={event.id}>
+        <Link
+          to={`/event/${event.id}`}
+          key={event.id}
+          onClick={() => window.scrollTo(0, 0)}
+        >
           <div className="border-l-4 border-sky-500 my-2 px-2 bg-sky-100">
             <h3>Organizer: {event.organizer}</h3>
             <p>Event: {event.eventName} </p>

@@ -10,8 +10,6 @@ const Event = () => {
     fetchEvent(id as string);
   }, []);
 
-  console.log("Event", event);
-
   return (
     <>
       <h3 className="text-3xl">{event.organizer}</h3>

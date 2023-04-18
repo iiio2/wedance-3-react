@@ -14,7 +14,6 @@ const EditEvent = () => {
   const { addEvent } = useEvent();
   const danceStyle = watch("danceStyle");
   const artist = watch("artist");
-  const allDanceStyles = watch("allDanceStyles");
 
   const getStyles = () => {
     if (danceStyle === "Choose Dance Style") return;
@@ -44,8 +43,6 @@ const EditEvent = () => {
     setDanceStyles(event.allDanceStyles);
     setArtists(event.allArtists);
   }, [event]);
-
-  console.log(event);
 
   const onSubmit: SubmitHandler<FormData> = (data) => {
     data.allDanceStyles = danceStyles;

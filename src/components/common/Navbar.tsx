@@ -1,6 +1,8 @@
 import { NavLink, useNavigate } from "react-router-dom";
+import useAuth from "../../hooks/useAuth";
 
 const Navbar = () => {
+  const { user, logout } = useAuth();
   const navigate = useNavigate();
   return (
     <div className="navbar bg-primary flex justify-center ">
@@ -29,12 +31,22 @@ const Navbar = () => {
             <li>
               <NavLink to="/about">About Us</NavLink>
             </li>
+            {user.uid && (
+              <li>
+                <NavLink to="/profile">Profile</NavLink>
+              </li>
+            )}
             <li>
               <NavLink to="/events">Events</NavLink>
             </li>
             <li>
               <NavLink to="/contact">Contact Us</NavLink>
             </li>
+            {user.uid && (
+              <li>
+                <a onClick={logout}>Logout</a>
+              </li>
+            )}
           </ul>
 
           <a

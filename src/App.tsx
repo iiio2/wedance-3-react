@@ -11,6 +11,7 @@ import DefaultLayout from "./layouts/default";
 import Events from "./components/Events";
 import Event from "./components/Event";
 import EditEvent from "./components/EditEvent";
+import NotFound from "./components/common/NotFound";
 import "./App.css";
 
 function App() {
@@ -81,6 +82,14 @@ function App() {
             element={
               <DefaultLayout>
                 <EditEvent />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="*"
+            element={
+              <DefaultLayout>
+                <NotFound />
               </DefaultLayout>
             }
           />

@@ -27,7 +27,13 @@ const Navbar = () => {
             className="menu menu-compact dropdown-content mt-3 p-2 shadow bg-base-100 text-primary rounded-box w-52"
           >
             <li>
-              <NavLink to="/about">About</NavLink>
+              <NavLink to="/about">About Us</NavLink>
+            </li>
+            <li>
+              <NavLink to="/events">Events</NavLink>
+            </li>
+            <li>
+              <NavLink to="/contact">Contact Us</NavLink>
             </li>
           </ul>
 

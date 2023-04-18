@@ -3,6 +3,7 @@ import {
   signInWithPopup,
   GoogleAuthProvider,
   onAuthStateChanged,
+  signOut,
 } from "firebase/auth";
 import { collection, addDoc, query, where, getDocs } from "firebase/firestore";
 import { auth, db } from "../services/firebase";
@@ -38,22 +39,32 @@ const useAuth = () => {
           user.push(doc.id);
         });
 
-        if (user.length > 0) return null;
+        if (user.length > 0) {
+          window.location.href = "/profile";
+          return;
+        }
         addDoc(collection(db, "users"), {
           displayName,
           email,
           photoURL,
           phoneNumber,
           createdAt: new Date(),
+          livingIn: "",
           uid,
-          events: [],
         }).then((docRef) => {
-          console.log("document written");
+          window.location.href = "/";
         });
       });
     });
   };
-  return { loginWithGoogle, user };
+
+  const logout = () => {
+    signOut(auth).then(() => {
+      window.location.href = "/";
+    });
+  };
+
+  return { loginWithGoogle, user, logout };
 };
 
 export default useAuth;

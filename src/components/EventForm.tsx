@@ -2,14 +2,39 @@ import { useEffect, useState, KeyboardEvent } from "react";
 import { useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useEvent from "../hooks/useEvent";
-import { FormData } from "./CreateEvent";
 import withSpinner from "./common/withSpinner";
 import useInput from "../hooks/useInput";
-import { eventTypes, danceStyleNames } from "./CreateEvent";
 
-const EditEvent = () => {
+export type FormData = {
+  organizer: string;
+  eventName: string;
+  tickets: string;
+  facebookEvent: string;
+  startDate: string;
+  endDate: string;
+  where: string;
+  price: string;
+  eventType: string;
+  danceStyle: string;
+  allDanceStyles: string[];
+  artist: string;
+  allArtists: string[];
+};
+
+export const eventTypes = ["Party", "Workshop", "Course", "Festival", "Other"];
+
+export const danceStyleNames = [
+  "Choose Dance Style",
+  "Allemande",
+  "Balboa",
+  "Ballet",
+  "Casino",
+  "Salsa",
+];
+
+const EventForm = () => {
   const { id } = useParams();
-  const { fetchEvent, event, updateEvent } = useEvent();
+  const { addEvent, fetchEvent, event, updateEvent } = useEvent();
 
   const { register, handleSubmit, watch, reset } = useForm<FormData>();
   const [danceStyles, setDanceStyles] = useState<string[]>([]);
@@ -45,10 +70,12 @@ const EditEvent = () => {
   }, [danceStyle]);
 
   useEffect(() => {
+    if (id === "new") return;
     fetchEvent(id!);
   }, [id]);
 
   useEffect(() => {
+    if (id === "new") return;
     reset(event);
     setDanceStyles(event.allDanceStyles);
     setArtists(event.allArtists);
@@ -57,6 +84,10 @@ const EditEvent = () => {
   const onSubmit: SubmitHandler<FormData> = (data) => {
     data.allDanceStyles = danceStyles;
     data.allArtists = artists;
+    if (id === "new") {
+      addEvent(data);
+      return;
+    }
     updateEvent(data, id!);
   };
 
@@ -84,4 +115,4 @@ const EditEvent = () => {
   );
 };
 
-export default withSpinner(EditEvent);
+export default withSpinner(EventForm);

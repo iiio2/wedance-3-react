@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { useNavigate } from "react-router-dom";
 import {
   signInWithPopup,
   GoogleAuthProvider,
@@ -13,16 +14,22 @@ interface User {
 }
 
 const useAuth = () => {
-  const [user, setUser] = useState<User>({} as User);
+  const [user, setUser] = useState<User | null>(null);
+  const [loading, setLoading] = useState(true);
+
+  const navigate = useNavigate();
+
   useEffect(() => {
     onAuthStateChanged(auth, (user) => {
       if (user) {
         setUser(user as User);
+        setLoading(false);
       } else {
-        return null;
+        setLoading(false);
+        setUser(null);
       }
     });
-  }, [user.uid]);
+  }, []);
 
   const loginWithGoogle = () => {
     const provider = new GoogleAuthProvider();
@@ -60,11 +67,11 @@ const useAuth = () => {
 
   const logout = () => {
     signOut(auth).then(() => {
-      window.location.href = "/";
+      navigate("/");
     });
   };
 
-  return { loginWithGoogle, user, logout };
+  return { loginWithGoogle, user, logout, loading };
 };
 
 export default useAuth;

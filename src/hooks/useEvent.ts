@@ -22,7 +22,7 @@ export interface Event {
   startDate: string;
   endDate: string;
   where: string;
-  price: number;
+  price: string;
   eventType: string;
   allDanceStyles: string[];
   allArtists: string[];

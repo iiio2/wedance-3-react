@@ -1,3 +1,5 @@
+import { Dispatch, SetStateAction, KeyboardEventHandler } from "react";
+
 const useInput = () => {
   const renderInput = (label: string, register: object, type = "text") => {
     return (
@@ -42,7 +44,92 @@ const useInput = () => {
     );
   };
 
-  return { renderInput, renderImage, renderBtn };
+  const renderSelect = (
+    label: string,
+    register: object,
+    items: string[],
+    defaultValue = "Choose Dance Style"
+  ) => {
+    return (
+      <div className="form-group">
+        <label className="label">
+          <span className="label-text">{label}</span>
+        </label>
+        <select
+          {...register}
+          className="select select-bordered w-full max-w-xs"
+          defaultValue={defaultValue}
+        >
+          {items.map((item) => (
+            <option disabled={item === defaultValue ? true : false} key={item}>
+              {item}
+            </option>
+          ))}
+        </select>
+      </div>
+    );
+  };
+
+  const renderItemsOnSelect = (
+    data: string[],
+    setData: Dispatch<SetStateAction<string[]>>
+  ) => {
+    return (
+      <>
+        {data.map((style, index) => (
+          <li key={index}>
+            {style} |{" "}
+            <button
+              className="btn btn-primary"
+              onClick={() => setData(data.filter((s, i) => i !== index))}
+            >
+              X
+            </button>{" "}
+          </li>
+        ))}
+      </>
+    );
+  };
+
+  const renderInputOnTab = (
+    label: string,
+    register: object,
+    handleItem: KeyboardEventHandler<HTMLInputElement>
+  ) => {
+    return (
+      <div className="form-group">
+        <label className="label">
+          <span className="label-text">{label}</span>
+        </label>
+
+        <input
+          {...register}
+          className="input input-bordered w-full max-w-xs"
+          onKeyDown={handleItem}
+        />
+      </div>
+    );
+  };
+
+  const renderItemsOnTab = (data: string[]) => {
+    return (
+      <>
+        {data.map((name: string, index: number) => (
+          <div key={index}>{name}</div>
+        ))}
+      </>
+    );
+  };
+
+  return {
+    renderInput,
+    renderImage,
+    renderBtn,
+    renderSelect,
+    renderItemsOnSelect,
+    renderInputOnTab,
+    renderItemsOnTab,
+  };
 };
 
 export default useInput;

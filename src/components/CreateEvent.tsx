@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useEvent from "../hooks/useEvent";
+import withSpinner from "./common/withSpinner";
 
 export type FormData = {
   organizer: string;
@@ -199,4 +200,4 @@ const CreateEvent = () => {
   );
 };
 
-export default CreateEvent;
+export default withSpinner(CreateEvent);

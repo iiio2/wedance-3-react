@@ -3,6 +3,7 @@ import { useParams } from "react-router-dom";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useEvent from "../hooks/useEvent";
 import { FormData } from "./CreateEvent";
+import withSpinner from "./common/withSpinner";
 
 const EditEvent = () => {
   const { id } = useParams();
@@ -199,4 +200,4 @@ const EditEvent = () => {
   );
 };
 
-export default EditEvent;
+export default withSpinner(EditEvent);

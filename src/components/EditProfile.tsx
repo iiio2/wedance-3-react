@@ -3,6 +3,7 @@ import { useForm, SubmitHandler } from "react-hook-form";
 import { storage } from "../services/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useProfile from "../hooks/useProfile";
+import withSpinner from "./common/withSpinner";
 
 type FormData = {
   displayName: string;
@@ -110,4 +111,4 @@ const EditProfile = () => {
   );
 };
 
-export default EditProfile;
+export default withSpinner(EditProfile);

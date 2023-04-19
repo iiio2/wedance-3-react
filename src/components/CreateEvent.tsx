@@ -34,7 +34,7 @@ export const danceStyleNames = [
 const CreateEvent = () => {
   const { register, handleSubmit, watch, reset } = useForm<FormData>();
   const [danceStyles, setDanceStyles] = useState<string[]>([]);
-  const [artists, setArtists] = useState<any>([]);
+  const [artists, setArtists] = useState<string[]>([]);
   const { addEvent } = useEvent();
   const {
     renderInput,

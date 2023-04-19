@@ -76,17 +76,18 @@ const useInput = () => {
   ) => {
     return (
       <>
-        {data.map((style, index) => (
-          <li key={index}>
-            {style} |{" "}
-            <button
-              className="btn btn-primary"
-              onClick={() => setData(data.filter((s, i) => i !== index))}
-            >
-              X
-            </button>{" "}
-          </li>
-        ))}
+        {data &&
+          data.map((style, index) => (
+            <li key={index}>
+              {style} |{" "}
+              <button
+                className="btn btn-primary"
+                onClick={() => setData(data.filter((s, i) => i !== index))}
+              >
+                X
+              </button>{" "}
+            </li>
+          ))}
       </>
     );
   };
@@ -114,9 +115,10 @@ const useInput = () => {
   const renderItemsOnTab = (data: string[]) => {
     return (
       <>
-        {data.map((name: string, index: number) => (
-          <div key={index}>{name}</div>
-        ))}
+        {data &&
+          data.map((name: string, index: number) => (
+            <div key={index}>{name}</div>
+          ))}
       </>
     );
   };

@@ -1,7 +1,7 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
-import { storage } from "../services/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
+import { storage } from "../services/firebase";
 import useProfile from "../hooks/useProfile";
 import withSpinner from "./common/withSpinner";
 import useInput from "../hooks/useInput";

@@ -96,7 +96,7 @@ const EventForm = () => {
       {renderInput("Organizer", register("organizer"))}
       {renderInput("Event Name", register("eventName"))}
       {renderInput("Tickets", register("tickets"))}
-      {renderInput("Facebook Evnet", register("facebookEvent"))}
+      {renderInput("Facebook Event", register("facebookEvent"))}
       {renderInput("Start Date", register("startDate"))}
       {renderInput("End Date", register("endDate"))}
       {renderInput("Where", register("where"))}

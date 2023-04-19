@@ -20,9 +20,9 @@ const Event = () => {
       <p className="text-xl">{event.endDate}</p>
       <p className="text-xl">{event.eventType}</p>
       {event.allArtists &&
-        event.allArtists.map((artist) => <p key={artist}>{artist}</p>)}
+        event.allArtists.map((artist, index) => <p key={index}>{artist}</p>)}
       {event.allDanceStyles &&
-        event.allDanceStyles.map((style) => <p key={style}>{style}</p>)}
+        event.allDanceStyles.map((style, index) => <p key={index}>{style}</p>)}
     </>
   );
 };

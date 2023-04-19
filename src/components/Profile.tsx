@@ -1,7 +1,7 @@
+import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import useProfile from "../hooks/useProfile";
 import useEvent from "../hooks/useEvent";
-import { useEffect, useState } from "react";
 import { Event } from "../hooks/useEvent";
 import withSpinner from "./common/withSpinner";
 
@@ -18,13 +18,13 @@ const Profile = () => {
   return (
     <>
       {person.email && (
-        <>
+        <div>
           <div className="avatar flex justify-between items-center">
             <div className="rounded-full">
               <img src={person.photoURL} />
             </div>
             <button
-              onClick={() => navigate("/edit-profile")}
+              onClick={() => navigate(`/edit-profile`)}
               className="btn btn-info"
             >
               + Edit Profile
@@ -35,7 +35,8 @@ const Profile = () => {
           <p>{person.phoneNumber}</p>
           <p>{person.livingIn}</p>
           {events.map((event) => (
-            <div
+            <Link
+              to={`/event/${event.id}`}
               className="border-l-4 border-sky-500 my-2 px-2 bg-sky-100 flex justify-between items-center"
               key={event.id}
             >
@@ -46,10 +47,7 @@ const Profile = () => {
               </div>
               <div className="btn-group">
                 <div className="edit-btn">
-                  <Link
-                    to={`/edit-event/${event.id}`}
-                    className="btn btn-accent"
-                  >
+                  <Link to={`/${event.id}`} className="btn btn-accent">
                     Edit
                   </Link>
                 </div>
@@ -65,15 +63,15 @@ const Profile = () => {
                   </button>
                 </div>
               </div>
-            </div>
+            </Link>
           ))}
           <button
-            onClick={() => navigate("/create-event")}
+            onClick={() => navigate("/new")}
             className="btn btn-success mt-2"
           >
             Create Event
           </button>
-        </>
+        </div>
       )}
     </>
   );

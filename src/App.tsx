@@ -4,13 +4,12 @@ import Home from "./components/Home";
 import About from "./components/About";
 import Profile from "./components/Profile";
 import Contact from "./components/Contact";
-import Footer from "./components/common/footer";
 import EditProfile from "./components/EditProfile";
-import CreateEvent from "./components/CreateEvent";
-import DefaultLayout from "./layouts/default";
+import EventForm from "./components/EventForm";
 import Events from "./components/Events";
 import Event from "./components/Event";
-import EditEvent from "./components/EditEvent";
+import DefaultLayout from "./layouts/default";
+import Footer from "./components/common/footer";
 import NotFound from "./components/common/NotFound";
 import "./App.css";
 
@@ -54,10 +53,10 @@ function App() {
             }
           />
           <Route
-            path="/create-event"
+            path="/event/:id"
             element={
               <DefaultLayout>
-                <CreateEvent />
+                <Event />
               </DefaultLayout>
             }
           />
@@ -70,21 +69,14 @@ function App() {
             }
           />
           <Route
-            path="/event/:id"
+            path="/:id"
             element={
               <DefaultLayout>
-                <Event />
+                <EventForm />
               </DefaultLayout>
             }
           />
-          <Route
-            path="/edit-event/:id"
-            element={
-              <DefaultLayout>
-                <EditEvent />
-              </DefaultLayout>
-            }
-          />
+
           <Route
             path="*"
             element={

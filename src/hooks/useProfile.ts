@@ -24,7 +24,7 @@ const useProfile = () => {
   const { user } = useAuth();
   const [person, setPerson] = useState<Person>({} as Person);
   const fetchUser = () => {
-    if (user.uid) {
+    if (user && user.uid) {
       const q = query(collection(db, "users"), where("uid", "==", user.uid));
       getDocs(q).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -35,7 +35,7 @@ const useProfile = () => {
   };
 
   const updateUser = (data: Person) => {
-    if (user.uid) {
+    if (user && user.uid) {
       const q = query(collection(db, "users"), where("uid", "==", user.uid));
       getDocs(q).then((querySnapshot) => {
         querySnapshot.forEach((query) => {

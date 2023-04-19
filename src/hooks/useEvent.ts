@@ -35,7 +35,7 @@ const useEvent = () => {
   const [event, setEvent] = useState<Event>({} as Event);
 
   const addEvent = (data: Event) => {
-    if (user.uid) {
+    if (user && user.uid) {
       addDoc(collection(db, "events"), {
         owner: user.uid,
         organizer: data.organizer,
@@ -67,7 +67,7 @@ const useEvent = () => {
   };
 
   const getEventsByOwner = () => {
-    if (user.uid) {
+    if (user && user.uid) {
       let events: Event[] = [];
       const q = query(collection(db, "events"), where("owner", "==", user.uid));
 
@@ -98,7 +98,7 @@ const useEvent = () => {
   };
 
   const updateEvent = (data: Event, eventId: string) => {
-    if (user.uid) {
+    if (user && user.uid) {
       const docRef = doc(db, "events", eventId);
       updateDoc(docRef, {
         organizer: data.organizer,
@@ -119,7 +119,7 @@ const useEvent = () => {
   useEffect(() => {
     allEvents();
     getEventsByOwner();
-  }, [user.uid]);
+  }, [user]);
 
   return {
     addEvent,

@@ -31,7 +31,7 @@ const Navbar = () => {
             <li>
               <NavLink to="/about">About Us</NavLink>
             </li>
-            {user.uid && (
+            {user && user.uid && (
               <li>
                 <NavLink to="/profile">Profile</NavLink>
               </li>
@@ -42,7 +42,7 @@ const Navbar = () => {
             <li>
               <NavLink to="/contact">Contact Us</NavLink>
             </li>
-            {user.uid && (
+            {user && user.uid && (
               <li>
                 <a onClick={logout}>Logout</a>
               </li>

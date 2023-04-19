@@ -5,9 +5,14 @@ interface Props {
 }
 
 const GoogleLogin = ({ label }: Props) => {
-  const { loginWithGoogle } = useAuth();
+  const { loginWithGoogle, user } = useAuth();
   return (
-    <button onClick={loginWithGoogle} className="btn btn-primary">
+    <button
+      onClick={
+        user ? () => (window.location.href = "/profile") : loginWithGoogle
+      }
+      className="btn btn-primary"
+    >
       {label}
     </button>
   );

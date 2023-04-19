@@ -50,7 +50,6 @@ const CreateEvent = () => {
     data.allDanceStyles = danceStyles;
     data.allArtists = artists;
     addEvent(data);
-    console.log(data);
   };
 
   return (

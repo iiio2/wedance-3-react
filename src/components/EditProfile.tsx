@@ -1,9 +1,10 @@
-import { useEffect, useState } from "react";
+import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
 import { storage } from "../services/firebase";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import useProfile from "../hooks/useProfile";
 import withSpinner from "./common/withSpinner";
+import useInput from "../hooks/useInput";
 
 type FormData = {
   displayName: string;
@@ -16,6 +17,7 @@ type FormData = {
 
 const EditProfile = () => {
   const { person, updateUser } = useProfile();
+  const { renderInput, renderImage, renderBtn } = useInput();
   const { register, handleSubmit, reset } = useForm<FormData>();
 
   useEffect(() => {
@@ -41,71 +43,13 @@ const EditProfile = () => {
   return (
     <>
       <form onSubmit={handleSubmit(onSubmit)}>
-        <div className="form-group">
-          <label className="label">
-            <span className="label-text">Name</span>
-          </label>
-          <input
-            {...register("displayName")}
-            className="input input-bordered w-full max-w-xs"
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">
-            <span className="label-text">Email</span>
-          </label>
-          <input
-            {...register("email")}
-            className="input input-bordered w-full max-w-xs"
-            disabled
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">
-            <span className="label-text">Phone Number</span>
-          </label>
-          <input
-            {...register("phoneNumber")}
-            className="input input-bordered w-full max-w-xs"
-          />
-        </div>
-        <div className="form-group">
-          <label className="label">
-            <span className="label-text">Living In</span>
-          </label>
-          <input
-            {...register("livingIn")}
-            className="input input-bordered w-full max-w-xs"
-          />
-        </div>
-
-        <div className="form-group">
-          <label className="label">
-            <span className="label-text">Photo</span>
-          </label>
-          <div className="avatar flex justify-between items-center">
-            <div className="rounded-full">
-              <img src={person.photoURL} />
-            </div>
-          </div>
-        </div>
-
-        <div className="form-group">
-          <label className="label">
-            <span className="label-text">Change Photo</span>
-          </label>
-          <input
-            {...register("image")}
-            type="file"
-            name="image"
-            accept="image/*"
-            className="file-input file-input-bordered w-full max-w-xs"
-          />
-        </div>
-
-        <button type="submit" className="btn btn-accent mt-3">
-          Submit
-        </button>
+        {renderInput("Name", register("displayName"))}
+        {renderInput("Email", register("email"), "email")}
+        {renderInput("Phone Number", register("phoneNumber"), "number")}
+        {renderInput("Living In", register("livingIn"))}
+        {renderImage("Photo", person.photoURL!)}
+        {renderInput("Change Photo", register("image"), "file")}
+        {renderBtn("Submit")}
       </form>
     </>
   );

@@ -3,12 +3,10 @@ import useProfile from "../hooks/useProfile";
 import useEvent from "../hooks/useEvent";
 import { useEffect, useState } from "react";
 import { Event } from "../hooks/useEvent";
-import useAuth from "../hooks/useAuth";
 import withSpinner from "./common/withSpinner";
 
 const Profile = () => {
   const { person } = useProfile();
-  const { loading, user } = useAuth();
   const { eventsOfOwner, deleteEvent } = useEvent();
   const [events, setEvents] = useState<Event[]>([]);
   const navigate = useNavigate();

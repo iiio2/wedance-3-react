@@ -10,7 +10,7 @@ const useInput = () => {
         <input
           {...register}
           type={type}
-          disabled={type === "email" ? true : false}
+          disabled={type === "email" || label === "Username" ? true : false}
           className={
             type === "file"
               ? "file-input file-input-bordered w-full max-w-xs"

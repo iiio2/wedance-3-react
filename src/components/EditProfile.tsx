@@ -46,10 +46,7 @@ const EditProfile = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {renderInput("Name", register("displayName"))}
         {renderInput("Email", register("email"), "email")}
-        {renderInput(
-          "Username (You can change username once)",
-          register("username")
-        )}
+        {renderInput("Username", register("username"))}
         {renderInput("Phone Number", register("phoneNumber"), "number")}
         {renderInput("Living In", register("livingIn"))}
         {renderImage("Photo", person.photoURL!)}

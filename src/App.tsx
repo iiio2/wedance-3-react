@@ -8,6 +8,7 @@ import EditProfile from "./components/EditProfile";
 import EventForm from "./components/EventForm";
 import Events from "./components/Events";
 import Event from "./components/Event";
+import User from "./components/User";
 import DefaultLayout from "./layouts/default";
 import Footer from "./components/common/footer";
 import NotFound from "./components/common/NotFound";
@@ -73,6 +74,14 @@ function App() {
             element={
               <DefaultLayout>
                 <EventForm />
+              </DefaultLayout>
+            }
+          />
+          <Route
+            path="/user/:id"
+            element={
+              <DefaultLayout>
+                <User />
               </DefaultLayout>
             }
           />

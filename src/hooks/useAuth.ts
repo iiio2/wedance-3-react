@@ -37,6 +37,8 @@ const useAuth = () => {
     signInWithPopup(auth, provider).then((result) => {
       const { displayName, email, photoURL, phoneNumber, uid } = result.user;
 
+      const username = email?.split("@")[0];
+
       const q = query(collection(db, "users"), where("email", "==", email));
 
       getDocs(q).then((querySnapshot) => {
@@ -53,13 +55,14 @@ const useAuth = () => {
         addDoc(collection(db, "users"), {
           displayName,
           email,
+          username,
           photoURL,
           phoneNumber,
           createdAt: new Date(),
           livingIn: "",
           uid,
         }).then((docRef) => {
-          window.location.href = "/";
+          window.location.href = "/profile";
         });
       });
     });

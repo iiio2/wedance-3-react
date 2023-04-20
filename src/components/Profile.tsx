@@ -32,6 +32,7 @@ const Profile = () => {
           </div>
           <h3 className="text-5xl">{person.displayName}</h3>
           <p>{person.email}</p>
+          <p>@{person.username}</p>
           <p>{person.phoneNumber}</p>
           <p>{person.livingIn}</p>
           {events.map((event) => (

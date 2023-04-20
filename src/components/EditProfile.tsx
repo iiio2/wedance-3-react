@@ -9,6 +9,7 @@ import useInput from "../hooks/useInput";
 type FormData = {
   displayName: string;
   email: string;
+  username: string;
   phoneNumber: number;
   livingIn: string;
   photoURL: string;
@@ -45,6 +46,10 @@ const EditProfile = () => {
       <form onSubmit={handleSubmit(onSubmit)}>
         {renderInput("Name", register("displayName"))}
         {renderInput("Email", register("email"), "email")}
+        {renderInput(
+          "Username (You can change username once)",
+          register("username")
+        )}
         {renderInput("Phone Number", register("phoneNumber"), "number")}
         {renderInput("Living In", register("livingIn"))}
         {renderImage("Photo", person.photoURL!)}

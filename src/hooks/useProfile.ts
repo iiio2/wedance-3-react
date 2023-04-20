@@ -13,6 +13,7 @@ import useAuth from "./useAuth";
 interface Person {
   displayName: string;
   email: string;
+  username: string;
   photoURL?: string;
   phoneNumber: number;
   livingIn: string;
@@ -37,6 +38,7 @@ const useProfile = () => {
   const updateUser = (data: Person) => {
     if (user && user.uid) {
       const q = query(collection(db, "users"), where("uid", "==", user.uid));
+
       getDocs(q).then((querySnapshot) => {
         querySnapshot.forEach((query) => {
           const docRef = doc(db, "users", query.id);

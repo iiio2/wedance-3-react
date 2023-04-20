@@ -7,8 +7,7 @@ const withSpinner = (WrappedComponent: any) => {
     const { user, loading } = useAuth();
 
     if (loading) return <Spinner />;
-    if (!user) return <NotFound />;
-    if (!user.uid) return <NotFound />;
+    if (!user || !user.uid) return <NotFound />;
 
     return <WrappedComponent {...props} />;
   };

@@ -1,5 +1,6 @@
 import { useEffect, useState, KeyboardEvent } from "react";
 import { useParams } from "react-router-dom";
+import { toast } from "react-toastify";
 import { useForm, SubmitHandler } from "react-hook-form";
 import useEvent from "../hooks/useEvent";
 import withSpinner from "./common/withSpinner";
@@ -86,9 +87,11 @@ const EventForm = () => {
     data.allArtists = artists;
     if (id === "new") {
       addEvent(data);
+      toast.success("Event Created");
       return;
     }
     updateEvent(data, id!);
+    toast.success("Event Updated");
   };
 
   return (
@@ -97,8 +100,8 @@ const EventForm = () => {
       {renderInput("Event Name", register("eventName"))}
       {renderInput("Tickets", register("tickets"))}
       {renderInput("Facebook Event", register("facebookEvent"))}
-      {renderInput("Start Date", register("startDate"))}
-      {renderInput("End Date", register("endDate"))}
+      {renderInput("Start Date", register("startDate"), "date")}
+      {renderInput("End Date", register("endDate"), "date")}
       {renderInput("Where", register("where"))}
       {renderInput("Price", register("price"))}
       {renderSelect("Event Type", register("eventType"), eventTypes)}

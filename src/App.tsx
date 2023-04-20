@@ -1,4 +1,5 @@
 import { Routes, Route } from "react-router-dom";
+import { ToastContainer } from "react-toastify";
 import Navbar from "./components/common/Navbar";
 import Home from "./components/Home";
 import About from "./components/About";
@@ -12,11 +13,13 @@ import User from "./components/User";
 import DefaultLayout from "./layouts/default";
 import Footer from "./components/common/footer";
 import NotFound from "./components/common/NotFound";
+import "react-toastify/dist/ReactToastify.css";
 import "./App.css";
 
 function App() {
   return (
     <div className="App">
+      <ToastContainer autoClose={2000} />
       <Navbar />
       <div className="main">
         <Routes>

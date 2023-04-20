@@ -1,5 +1,6 @@
 import { useEffect } from "react";
 import { useForm, SubmitHandler } from "react-hook-form";
+import { toast } from "react-toastify";
 import { ref, uploadBytes, getDownloadURL } from "firebase/storage";
 import { storage } from "../services/firebase";
 import useProfile from "../hooks/useProfile";
@@ -33,12 +34,14 @@ const EditProfile = () => {
           (url) => {
             data.photoURL = url;
             updateUser(data);
+            toast.success("Profile Updated");
             return;
           }
         );
       });
     }
     updateUser(data);
+    toast.success("Profile Updated");
   };
 
   return (

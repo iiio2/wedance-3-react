@@ -12,6 +12,7 @@ import {
 } from "firebase/firestore";
 import { db } from "../services/firebase";
 import useAuth from "./useAuth";
+import useProfile from "./useProfile";
 
 export interface Event {
   id?: string;
@@ -30,6 +31,7 @@ export interface Event {
 
 const useEvent = () => {
   const { user } = useAuth();
+  const { person } = useProfile();
   const [eventsOfOwner, setEventsOfOwner] = useState<Event[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [event, setEvent] = useState<Event>({} as Event);
@@ -38,6 +40,7 @@ const useEvent = () => {
     if (user && user.uid) {
       addDoc(collection(db, "events"), {
         owner: user.uid,
+        username: person.username,
         organizer: data.organizer,
         eventName: data.eventName,
         tickets: data.tickets,
@@ -116,6 +119,20 @@ const useEvent = () => {
     }
   };
 
+  const getEventsByUsername = (username: string) => {
+    const q = query(
+      collection(db, "events"),
+      where("username", "==", username)
+    );
+    const events: Event[] = [];
+    getDocs(q).then((querySnapshot) => {
+      querySnapshot.forEach((doc) => {
+        events.push({ id: doc.id, ...doc.data() } as Event);
+      });
+      setEvents(events);
+    });
+  };
+
   useEffect(() => {
     allEvents();
     getEventsByOwner();
@@ -129,6 +146,7 @@ const useEvent = () => {
     fetchEvent,
     event,
     updateEvent,
+    getEventsByUsername,
   };
 };
 

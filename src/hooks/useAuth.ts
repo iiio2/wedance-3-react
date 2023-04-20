@@ -1,4 +1,5 @@
 import { useState, useEffect } from "react";
+import { toast } from "react-toastify";
 import { useNavigate } from "react-router-dom";
 import {
   signInWithPopup,
@@ -71,6 +72,7 @@ const useAuth = () => {
   const logout = () => {
     signOut(auth).then(() => {
       navigate("/");
+      toast.success("You are logged out");
     });
   };
 

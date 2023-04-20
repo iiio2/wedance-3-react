@@ -36,35 +36,42 @@ const Profile = () => {
           <p>{person.phoneNumber}</p>
           <p>{person.livingIn}</p>
           {events.map((event) => (
-            <Link
-              to={`/event/${event.id}`}
-              className="border-l-4 border-sky-500 my-2 px-2 bg-sky-100 flex justify-between items-center"
+            <div
               key={event.id}
+              className="flex justify-between items-center  bg-sky-100 "
             >
-              <div className="event-short-info">
-                <h3>Organizer: {event.organizer}</h3>
-                <p>Event: {event.eventName} </p>
-                <p>Price: {event.price} </p>
-              </div>
-              <div className="btn-group">
-                <div className="edit-btn">
-                  <Link to={`/${event.id}`} className="btn btn-accent">
-                    Edit
-                  </Link>
-                </div>
-                <div className="delete-btn ml-2">
-                  <button
-                    onClick={() => {
-                      setEvents(events.filter((e) => e.id !== event.id));
-                      deleteEvent(event);
-                    }}
-                    className="btn btn-error"
-                  >
-                    Delete
-                  </button>
+              <div
+                onClick={() => navigate(`/event/${event.id}`)}
+                key={event.id}
+                className="border-l-4 border-sky-500 my-2 px-2 bg-sky-100 cursor-pointer grow"
+              >
+                <div className="event-short-info">
+                  <h3>Organizer: {event.organizer}</h3>
+                  <p>Event: {event.eventName} </p>
+                  <p>Price: {event.price} </p>
                 </div>
               </div>
-            </Link>
+              <div className="border-sky-500 my-2 px-2 bg-sky-100 flex justify-between">
+                <div className="btn-group">
+                  <div className="edit-btn">
+                    <Link to={`/${event.id}`} className="btn btn-accent">
+                      Edit
+                    </Link>
+                  </div>
+                  <div className="delete-btn ml-2">
+                    <button
+                      onClick={() => {
+                        setEvents(events.filter((e) => e.id !== event.id));
+                        deleteEvent(event);
+                      }}
+                      className="btn btn-error"
+                    >
+                      Delete
+                    </button>
+                  </div>
+                </div>
+              </div>
+            </div>
           ))}
           <button
             onClick={() => navigate("/new")}

@@ -35,10 +35,10 @@ const EditProfile = () => {
             data.photoURL = url;
             updateUser(data);
             toast.success("Profile Updated");
-            return;
           }
         );
       });
+      return;
     }
     updateUser(data);
     toast.success("Profile Updated");

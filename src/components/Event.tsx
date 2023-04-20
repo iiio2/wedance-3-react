@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, Link } from "react-router-dom";
 import useEvent from "../hooks/useEvent";
 
 const Event = () => {
@@ -19,7 +19,12 @@ const Event = () => {
 
   return (
     <>
-      <p className="italic">{event.username}</p>
+      <Link
+        to={`/user/${event.username}`}
+        className="italic underline underline-offset-2"
+      >
+        {event.username}
+      </Link>
       <h3 className="text-3xl">{event.organizer}</h3>
       <h3 className="text-2xl">{event.eventName}</h3>
       <p className="text-xl">{event.where}</p>

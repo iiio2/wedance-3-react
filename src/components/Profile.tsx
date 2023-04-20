@@ -38,12 +38,12 @@ const Profile = () => {
           {events.map((event) => (
             <div
               key={event.id}
-              className="flex justify-between items-center  bg-sky-100 "
+              className="flex justify-between items-center bg-sky-100 mb-2"
             >
               <div
                 onClick={() => navigate(`/event/${event.id}`)}
                 key={event.id}
-                className="border-l-4 border-sky-500 my-2 px-2 bg-sky-100 cursor-pointer grow"
+                className="border-l-4 border-sky-500 px-2 bg-sky-100 cursor-pointer grow"
               >
                 <div className="event-short-info">
                   <h3>Organizer: {event.organizer}</h3>

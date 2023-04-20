@@ -107,7 +107,7 @@ const EventForm = () => {
       {renderSelect("Event Type", register("eventType"), eventTypes)}
       {renderItemsOnSelect(danceStyles, setDanceStyles)}
       {renderSelect("Dance Styles", register("danceStyle"), danceStyleNames)}
-      {renderItemsOnTab(artists)}
+      {renderItemsOnTab(artists, setArtists)}
       {renderInputOnTab(
         "Artists (Press Tab for adding artist)",
         register("artist"),

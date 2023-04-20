@@ -82,7 +82,10 @@ const useInput = () => {
               {style} |{" "}
               <button
                 className="btn btn-primary"
-                onClick={() => setData(data.filter((s, i) => i !== index))}
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData(data.filter((s, i) => i !== index));
+                }}
               >
                 X
               </button>{" "}
@@ -112,12 +115,26 @@ const useInput = () => {
     );
   };
 
-  const renderItemsOnTab = (data: string[]) => {
+  const renderItemsOnTab = (
+    data: string[],
+    setData: Dispatch<SetStateAction<string[]>>
+  ) => {
     return (
       <>
         {data &&
           data.map((name: string, index: number) => (
-            <div key={index}>{name}</div>
+            <div key={index}>
+              {name}{" "}
+              <button
+                className="btn btn-primary"
+                onClick={(event) => {
+                  event.preventDefault();
+                  setData(data.filter((s, i) => i !== index));
+                }}
+              >
+                X
+              </button>{" "}
+            </div>
           ))}
       </>
     );

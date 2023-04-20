@@ -10,8 +10,16 @@ const Event = () => {
     fetchEvent(id as string);
   }, []);
 
+  const getFormattedData = (data: string[]) => {
+    return new Intl.ListFormat("en", {
+      style: "long",
+      type: "unit",
+    }).format(data);
+  };
+
   return (
     <>
+      <p className="italic">{event.username}</p>
       <h3 className="text-3xl">{event.organizer}</h3>
       <h3 className="text-2xl">{event.eventName}</h3>
       <p className="text-xl">{event.where}</p>
@@ -19,10 +27,14 @@ const Event = () => {
       <p className="text-xl">{event.startDate}</p>
       <p className="text-xl">{event.endDate}</p>
       <p className="text-xl">{event.eventType}</p>
-      {event.allArtists &&
-        event.allArtists.map((artist, index) => <p key={index}>{artist}</p>)}
-      {event.allDanceStyles &&
-        event.allDanceStyles.map((style, index) => <p key={index}>{style}</p>)}
+      <p className="text-xl">
+        {event &&
+          event.allDanceStyles &&
+          getFormattedData(event.allDanceStyles)}
+      </p>
+      <p className="text-xl">
+        {event && event.allArtists && getFormattedData(event.allArtists)}
+      </p>
     </>
   );
 };

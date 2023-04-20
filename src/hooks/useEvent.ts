@@ -16,6 +16,7 @@ import useProfile from "./useProfile";
 
 export interface Event {
   id?: string;
+  username?: string;
   organizer: string;
   eventName: string;
   tickets: string;

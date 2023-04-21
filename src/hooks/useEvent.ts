@@ -146,6 +146,7 @@ const useEvent = () => {
     deleteEvent,
     fetchEvent,
     event,
+    setEvents,
     updateEvent,
     getEventsByUsername,
   };

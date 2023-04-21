@@ -1,11 +1,29 @@
+import { useState } from "react";
 import { Link } from "react-router-dom";
 import useEvent from "../hooks/useEvent";
+import SearchBox from "./common/SearchBox";
+import { Event } from "../hooks/useEvent";
 
 const Events = () => {
   const { events } = useEvent();
+  const [query, setQuery] = useState("");
+
+  let allEvents: Event[] = query
+    ? events.filter(
+        (event) =>
+          event.eventName.toLowerCase().includes(query.toLowerCase()) ||
+          event.organizer.toLowerCase().includes(query.toLowerCase()) ||
+          event.where.toLowerCase().includes(query.toLowerCase()) ||
+          event.allDanceStyles.some((style) =>
+            style.toLowerCase().includes(query.toLowerCase())
+          )
+      )
+    : events;
+
   return (
     <>
-      {events.map((event) => (
+      {allEvents.length > 0 && <SearchBox query={query} setQuery={setQuery} />}
+      {allEvents.map((event) => (
         <Link
           to={`/event/${event.id}`}
           key={event.id}

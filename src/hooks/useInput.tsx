@@ -70,31 +70,6 @@ const useInput = () => {
     );
   };
 
-  const renderItemsOnSelect = (
-    data: string[],
-    setData: Dispatch<SetStateAction<string[]>>
-  ) => {
-    return (
-      <>
-        {data &&
-          data.map((style, index) => (
-            <li key={index}>
-              {style} |{" "}
-              <button
-                className="btn btn-primary"
-                onClick={(event) => {
-                  event.preventDefault();
-                  setData(data.filter((s, i) => i !== index));
-                }}
-              >
-                X
-              </button>{" "}
-            </li>
-          ))}
-      </>
-    );
-  };
-
   const renderInputOnTab = (
     label: string,
     register: object,
@@ -115,7 +90,7 @@ const useInput = () => {
     );
   };
 
-  const renderItemsOnTab = (
+  const renderItems = (
     data: string[],
     setData: Dispatch<SetStateAction<string[]>>
   ) => {
@@ -145,9 +120,8 @@ const useInput = () => {
     renderImage,
     renderBtn,
     renderSelect,
-    renderItemsOnSelect,
     renderInputOnTab,
-    renderItemsOnTab,
+    renderItems,
   };
 };
 

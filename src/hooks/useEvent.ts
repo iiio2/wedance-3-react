@@ -29,7 +29,7 @@ export interface Event {
   eventType: string;
   allDanceStyles: string[];
   allArtists: string[];
-  bookmark: boolean;
+  bookmark?: boolean;
 }
 
 const useEvent = () => {

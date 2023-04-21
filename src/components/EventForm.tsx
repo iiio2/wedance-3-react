@@ -42,9 +42,8 @@ const EventForm = () => {
   const {
     renderInput,
     renderSelect,
-    renderItemsOnSelect,
-    renderItemsOnTab,
     renderInputOnTab,
+    renderItems,
     renderBtn,
   } = useInput();
   const [artists, setArtists] = useState<string[]>([]);
@@ -105,9 +104,9 @@ const EventForm = () => {
       {renderInput("Where", register("where"))}
       {renderInput("Price", register("price"))}
       {renderSelect("Event Type", register("eventType"), eventTypes)}
-      {renderItemsOnSelect(danceStyles, setDanceStyles)}
+      {renderItems(danceStyles, setDanceStyles)}
       {renderSelect("Dance Styles", register("danceStyle"), danceStyleNames)}
-      {renderItemsOnTab(artists, setArtists)}
+      {renderItems(artists, setArtists)}
       {renderInputOnTab(
         "Artists (Press Tab for adding artist)",
         register("artist"),

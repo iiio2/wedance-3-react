@@ -24,6 +24,7 @@ interface Person {
 const useProfile = () => {
   const { user } = useAuth();
   const [person, setPerson] = useState<Person>({} as Person);
+  const [profile, setProfile] = useState<Person>({} as Person);
 
   const fetchUser = () => {
     if (user && user.uid) {
@@ -58,7 +59,7 @@ const useProfile = () => {
     const q = query(collection(db, "users"), where("username", "==", username));
     getDocs(q).then((querySnapshot) => {
       querySnapshot.forEach((doc) => {
-        setPerson(doc.data() as Person);
+        setProfile(doc.data() as Person);
       });
     });
   };
@@ -67,7 +68,7 @@ const useProfile = () => {
     fetchUser();
   }, [user]);
 
-  return { person, updateUser, getProfileByUsername };
+  return { person, profile, updateUser, getProfileByUsername };
 };
 
 export default useProfile;

@@ -5,7 +5,7 @@ import useEvent from "../hooks/useEvent";
 useEvent;
 
 const User = () => {
-  const { person, getProfileByUsername } = useProfile();
+  const { profile, getProfileByUsername } = useProfile();
   const { events, getEventsByUsername } = useEvent();
   const { id } = useParams();
 
@@ -18,13 +18,13 @@ const User = () => {
     <div>
       <div className="avatar flex justify-between items-center">
         <div className="rounded-full">
-          <img src={person.photoURL} />
+          <img src={profile.photoURL} />
         </div>
       </div>
-      <h3 className="text-5xl">{person.displayName}</h3>
-      <p>{person.email}</p>
-      <p>{person.phoneNumber}</p>
-      <p>{person.livingIn}</p>
+      <h3 className="text-5xl">{profile.displayName}</h3>
+      <p>{profile.email}</p>
+      <p>{profile.phoneNumber}</p>
+      <p>{profile.livingIn}</p>
 
       {events &&
         events.map((event) => (

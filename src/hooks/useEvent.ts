@@ -9,6 +9,7 @@ import {
   doc,
   getDoc,
   updateDoc,
+  orderBy,
 } from "firebase/firestore";
 import { db } from "../services/firebase";
 import useAuth from "./useAuth";
@@ -28,6 +29,7 @@ export interface Event {
   eventType: string;
   allDanceStyles: string[];
   allArtists: string[];
+  bookmark: boolean;
 }
 
 const useEvent = () => {
@@ -36,6 +38,7 @@ const useEvent = () => {
   const [eventsOfOwner, setEventsOfOwner] = useState<Event[]>([]);
   const [events, setEvents] = useState<Event[]>([]);
   const [event, setEvent] = useState<Event>({} as Event);
+  const [bookmarked, setBookmarked] = useState();
 
   const addEvent = (data: Event) => {
     if (user && user.uid) {
@@ -53,6 +56,7 @@ const useEvent = () => {
         eventType: data.eventType,
         allDanceStyles: data.allDanceStyles,
         allArtists: data.allArtists,
+        bookmark: false,
       });
     }
   };
@@ -73,7 +77,11 @@ const useEvent = () => {
   const getEventsByOwner = () => {
     if (user && user.uid) {
       let events: Event[] = [];
-      const q = query(collection(db, "events"), where("owner", "==", user.uid));
+      const q = query(
+        collection(db, "events"),
+        where("owner", "==", user.uid),
+        orderBy("bookmark", "desc")
+      );
 
       getDocs(q).then((querySnapshot) => {
         querySnapshot.forEach((doc) => {
@@ -120,6 +128,23 @@ const useEvent = () => {
     }
   };
 
+  const bookmarkEvent = (eventId: string) => {
+    if (user && user.uid) {
+      const docRef = doc(db, "events", eventId);
+
+      const event = getDoc(docRef);
+      event.then((doc) => {
+        if (doc.exists()) {
+          const status = doc.data().bookmark;
+          setBookmarked(status);
+          updateDoc(docRef, {
+            bookmark: !status,
+          });
+        }
+      });
+    }
+  };
+
   const getEventsByUsername = (username: string) => {
     const q = query(
       collection(db, "events"),
@@ -137,7 +162,7 @@ const useEvent = () => {
   useEffect(() => {
     allEvents();
     getEventsByOwner();
-  }, [user]);
+  }, [user, bookmarked]);
 
   return {
     addEvent,
@@ -148,7 +173,10 @@ const useEvent = () => {
     event,
     setEvents,
     updateEvent,
+    bookmarkEvent,
     getEventsByUsername,
+    setEventsOfOwner,
+    bookmarked,
   };
 };
 

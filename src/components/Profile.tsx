@@ -1,19 +1,13 @@
-import { useEffect, useState } from "react";
 import { useNavigate, Link } from "react-router-dom";
 import useProfile from "../hooks/useProfile";
 import useEvent from "../hooks/useEvent";
-import { Event } from "../hooks/useEvent";
 import withSpinner from "./common/withSpinner";
 
 const Profile = () => {
   const { person } = useProfile();
-  const { eventsOfOwner, deleteEvent } = useEvent();
-  const [events, setEvents] = useState<Event[]>([]);
+  const { eventsOfOwner, deleteEvent, bookmarkEvent, setEventsOfOwner } =
+    useEvent();
   const navigate = useNavigate();
-
-  useEffect(() => {
-    setEvents(eventsOfOwner);
-  }, [eventsOfOwner]);
 
   return (
     <>
@@ -35,7 +29,7 @@ const Profile = () => {
           <p>@{person.username}</p>
           <p>{person.phoneNumber}</p>
           <p>{person.livingIn}</p>
-          {events.map((event) => (
+          {eventsOfOwner.map((event) => (
             <div
               key={event.id}
               className="flex justify-between items-center bg-sky-100 mb-2"
@@ -43,7 +37,7 @@ const Profile = () => {
               <div
                 onClick={() => navigate(`/event/${event.id}`)}
                 key={event.id}
-                className="border-l-4 border-sky-500 px-2 bg-sky-100 cursor-pointer grow"
+                className="border-l-4 border-sky-500 px-2 cursor-pointer grow bg-sky-100"
               >
                 <div className="event-short-info">
                   <h3>Organizer: {event.organizer}</h3>
@@ -54,14 +48,26 @@ const Profile = () => {
               <div className="border-sky-500 my-2 px-2 bg-sky-100 flex justify-between">
                 <div className="btn-group">
                   <div className="edit-btn">
-                    <Link to={`/${event.id}`} className="btn btn-accent">
+                    <button
+                      onClick={() => {
+                        bookmarkEvent(event.id!);
+                      }}
+                      className="btn btn-warning"
+                    >
+                      {!event.bookmark ? "Bookmark" : "Unbookmark"}
+                    </button>
+                  </div>
+                  <div className="edit-btn">
+                    <Link to={`/${event.id}`} className="btn btn-accent mx-1">
                       Edit
                     </Link>
                   </div>
-                  <div className="delete-btn ml-2">
+                  <div className="delete-btn">
                     <button
                       onClick={() => {
-                        setEvents(events.filter((e) => e.id !== event.id));
+                        setEventsOfOwner(
+                          eventsOfOwner.filter((e) => e.id !== event.id)
+                        );
                         deleteEvent(event);
                       }}
                       className="btn btn-error"

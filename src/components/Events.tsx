@@ -22,7 +22,7 @@ const Events = () => {
 
   return (
     <>
-      {allEvents.length > 0 && <SearchBox query={query} setQuery={setQuery} />}
+      {events.length > 0 && <SearchBox query={query} setQuery={setQuery} />}
       {allEvents.map((event) => (
         <Link
           to={`/event/${event.id}`}

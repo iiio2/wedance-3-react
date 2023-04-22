@@ -162,7 +162,7 @@ const useEvent = () => {
   useEffect(() => {
     allEvents();
     getEventsByOwner();
-  }, [user, bookmarked]);
+  }, [user, bookmarked, events]);
 
   return {
     addEvent,

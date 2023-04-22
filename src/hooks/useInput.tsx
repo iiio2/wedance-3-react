@@ -36,10 +36,15 @@ const useInput = () => {
     );
   };
 
-  const renderBtn = (label: string) => {
+  const renderBtn = (label: string, loading?: boolean) => {
     return (
-      <button type="submit" className="btn btn-accent mt-3">
-        {label}
+      <button
+        type="submit"
+        className={
+          loading ? "btn btn-accent mt-3 loading" : "btn btn-accent mt-3"
+        }
+      >
+        {loading ? "Submitting" : label}
       </button>
     );
   };

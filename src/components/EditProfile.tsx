@@ -18,7 +18,7 @@ type FormData = {
 };
 
 const EditProfile = () => {
-  const { person, updateUser } = useProfile();
+  const { person, updateUser, loading } = useProfile();
   const { renderInput, renderImage, renderBtn } = useInput();
   const { register, handleSubmit, reset } = useForm<FormData>();
 
@@ -54,7 +54,7 @@ const EditProfile = () => {
         {renderInput("Living In", register("livingIn"))}
         {renderImage("Photo", person.photoURL!)}
         {renderInput("Change Photo", register("image"), "file")}
-        {renderBtn("Submit")}
+        {renderBtn("Submit", loading)}
       </form>
     </>
   );

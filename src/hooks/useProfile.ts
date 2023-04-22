@@ -25,6 +25,7 @@ const useProfile = () => {
   const { user } = useAuth();
   const [person, setPerson] = useState<Person>({} as Person);
   const [profile, setProfile] = useState<Person>({} as Person);
+  const [loading, setLoading] = useState(false);
 
   const fetchUser = () => {
     if (user && user.uid) {
@@ -38,9 +39,9 @@ const useProfile = () => {
   };
 
   const updateUser = (data: Person) => {
+    setLoading(true);
     if (user && user.uid) {
       const q = query(collection(db, "users"), where("uid", "==", user.uid));
-
       getDocs(q).then((querySnapshot) => {
         querySnapshot.forEach((query) => {
           const docRef = doc(db, "users", query.id);
@@ -50,6 +51,7 @@ const useProfile = () => {
             livingIn: data.livingIn,
             photoURL: data.photoURL,
           });
+          setLoading(false);
         });
       });
     }
@@ -68,7 +70,7 @@ const useProfile = () => {
     fetchUser();
   }, [user]);
 
-  return { person, profile, updateUser, getProfileByUsername };
+  return { person, profile, updateUser, getProfileByUsername, loading };
 };
 
 export default useProfile;

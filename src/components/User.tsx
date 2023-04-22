@@ -1,12 +1,14 @@
 import { useEffect } from "react";
-import { useParams, Link } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import useProfile from "../hooks/useProfile";
 import useEvent from "../hooks/useEvent";
+import ProfileContent from "./common/ProfileContent";
+import ProfileEvents from "./common/ProfileEvents";
 useEvent;
 
 const User = () => {
-  const { profile, getProfileByUsername } = useProfile();
-  const { events, getEventsByUsername } = useEvent();
+  const { getProfileByUsername } = useProfile();
+  const { getEventsByUsername } = useEvent();
   const { id } = useParams();
 
   useEffect(() => {
@@ -15,32 +17,10 @@ const User = () => {
   }, [id]);
 
   return (
-    <div>
-      <div className="avatar flex justify-between items-center">
-        <div className="rounded-full">
-          <img src={profile.photoURL} />
-        </div>
-      </div>
-      <h3 className="text-5xl">{profile.displayName}</h3>
-      <p>{profile.email}</p>
-      <p>{profile.phoneNumber}</p>
-      <p>{profile.livingIn}</p>
-
-      {events &&
-        events.map((event) => (
-          <Link
-            to={`/event/${event.id}`}
-            className="border-l-4 border-sky-500 my-2 px-2 bg-sky-100 flex justify-between items-center"
-            key={event.id}
-          >
-            <div className="event-short-info">
-              <h3>Organizer: {event.organizer}</h3>
-              <p>Event: {event.eventName} </p>
-              <p>Price: {event.price} </p>
-            </div>
-          </Link>
-        ))}
-    </div>
+    <>
+      <ProfileContent />
+      <ProfileEvents />
+    </>
   );
 };
 

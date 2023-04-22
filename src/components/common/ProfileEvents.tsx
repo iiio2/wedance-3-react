@@ -1,21 +1,30 @@
-import { useNavigate, Link, useLocation } from "react-router-dom";
+import { useEffect } from "react";
+import { useNavigate, Link, useLocation, useParams } from "react-router-dom";
 import useEvent from "../../hooks/useEvent";
 import useAuth from "../../hooks/useAuth";
 
 const ProfileEvents = () => {
   const {
-    eventsOfOwner,
     deleteEvent,
     bookmarkEvent,
+    eventsOfOwner,
     setEventsOfOwner,
-    loading,
+    getEventsByUsername,
+    events,
   } = useEvent();
   const { user } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const { id } = useParams();
+
+  useEffect(() => {
+    if (!id) return;
+    getEventsByUsername(id);
+  }, []);
+
   return (
     <>
-      {eventsOfOwner.map((event) => (
+      {events.map((event) => (
         <div
           key={event.id}
           className="flex justify-between items-center bg-sky-100 my-2"
@@ -32,7 +41,7 @@ const ProfileEvents = () => {
             </div>
           </div>
           <div className="border-sky-500 my-2 px-2 bg-sky-100 flex justify-between">
-            {user?.uid && location.pathname === "/profile" && (
+            {!id && (
               <div className="btn-group">
                 <div className="edit-btn">
                   <button

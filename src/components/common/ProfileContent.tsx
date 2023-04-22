@@ -21,8 +21,7 @@ const ProfileContent = () => {
         <div className="rounded-full">
           <img src={person.photoURL ? person.photoURL : profile.photoURL} />
         </div>
-
-        {user?.uid && person.email && location.pathname === "/profile" && (
+        {user?.uid && person.email && !id && (
           <button
             onClick={() => navigate(`/edit-profile`)}
             className="btn btn-info"
@@ -31,7 +30,7 @@ const ProfileContent = () => {
           </button>
         )}
       </div>
-      {user?.uid && person.email && location.pathname === "/profile" && (
+      {user?.uid && person.email && !id && (
         <button
           onClick={() => navigate("/new")}
           className="btn btn-success pl-2 float-right"
@@ -42,20 +41,13 @@ const ProfileContent = () => {
 
       {(person.email || profile.email) && (
         <>
-          <h3 className="text-5xl">{profile.displayName}</h3>
+          <h3 className="text-5xl">
+            {person.displayName || profile.displayName}
+          </h3>
           <p>{person.email ? person.email : profile.email}</p>
-          {user?.uid && location.pathname === "/profile" && (
-            <p>
-              <Link
-                className="italic"
-                to={`/user/${
-                  person.username ? profile.username : profile.username
-                }`}
-              >
-                @{person.username ? person.username : profile.username}
-              </Link>
-            </p>
-          )}
+          <Link className="italic" to={`/user/${person.username}`}>
+            @{person.username ? person.username : profile.username}
+          </Link>
           <p>{person.phoneNumber ? person.phoneNumber : profile.phoneNumber}</p>
           <p>{person.livingIn ? person.livingIn : profile.livingIn}</p>
         </>
